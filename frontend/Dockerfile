@@ -1,7 +1,7 @@
 # frontend/Dockerfile
 
 # Use Node.js base image
-FROM node:14-alpine as build
+FROM node:20-alpine3.19 as build
 
 # Set work directory
 WORKDIR /app
