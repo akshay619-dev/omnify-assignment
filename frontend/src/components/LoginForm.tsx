@@ -42,18 +42,21 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
           .catch(error => {
             console.error(error)
             toast({
+              variant: "destructive",
               title: "Error",
               description: "Invalid Credentials...Please try again.",
             })
           });
       } else {
         toast({
+          variant: "destructive",
           title: "Error",
           description: "Please all fields are mandatory...",
         })
       }
     } catch (error) {
       toast({
+        variant: "destructive",
         title: "Error",
         description: "Something went wrong....",
       })

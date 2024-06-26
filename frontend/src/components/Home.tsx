@@ -7,6 +7,10 @@ import { useToast } from "./ui/use-toast"
 import moment from 'moment';
 import Pagination from '../config/Pagination';
 
+interface Friend {
+    friend: number;
+    friend_name: string;
+  }
 interface User {
     id: number;
     name: string;
@@ -20,6 +24,8 @@ const Home = () => {
     const [users, setUsers] = useState<User[]>([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
+    const [sortField, setSortField] = useState<string>('id');
+    const [sortDirection, setSortDirection] = useState<string>('asc');
 
     useEffect(() => {
         fetchUsers(currentPage);
@@ -30,11 +36,11 @@ const Home = () => {
             .then(response => {
                 console.log(response.data)
                 setUsers(response.data.results);
-                setTotalPages(response.data.count / response.data.results.length);  
+                setTotalPages(Math.ceil(response.data.count / response.data.results.length));
             })
             .catch(error => console.error(error));
     };
-    const deleteUser = (id: Number) => {
+    const deleteUser = (id:number) => {
         try {
             axiosInstance.delete(`/api/users/${id}/`)
             .then(() => setUsers(users.filter(user => user.id !== id)))
@@ -46,6 +52,7 @@ const Home = () => {
               })
         } catch (error) {
             toast({
+                variant: "destructive",
                 title: "Error",
                 description: "Something went wrong!",
               })
@@ -55,6 +62,38 @@ const Home = () => {
     const handlePageChange = (page:number) => {
         setCurrentPage(page);
     };
+
+    const handleSort = (field: string) => {
+        const newSortDirection = sortField === field && sortDirection === 'asc' ? 'desc' : 'asc';
+        setSortField(field);
+        setSortDirection(newSortDirection);
+    
+        const sortedUsers = [...users].sort((a: any, b: any) => {
+          if (field === 'name') {
+            return newSortDirection === 'asc'
+              ? a.name.localeCompare(b.name)
+              : b.name.localeCompare(a.name);
+          } else if (field === 'created_at' || field === 'updated_at') {
+            return newSortDirection === 'asc'
+              ? new Date(a[field]).getTime() - new Date(b[field]).getTime()
+              : new Date(b[field]).getTime() - new Date(a[field]).getTime();
+          } else if (field === 'id') {
+            return newSortDirection === 'asc'
+              ? a.id - b.id
+              : b.id - a.id;
+          } else {
+            toast({
+                variant: "destructive",
+                title: "Error",
+                description: `Cannot sort by ${field}`,
+            })
+          }
+        });
+    
+        setUsers(sortedUsers);
+      };
+
+   
 
     return (
         <>
@@ -67,16 +106,15 @@ const Home = () => {
                     <table className="table-auto w-full text-left whitespace-no-wrap">
                         <thead>
                             <tr>
-                                <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-lg bg-gray-100 rounded-tl rounded-bl">ID</th>
-                                <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-lg bg-gray-100 rounded-tl rounded-bl">Users</th>
+                                <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-lg bg-gray-100 rounded-tl rounded-bl cursor-pointer" onClick={() => handleSort('id')}> ID </th>
+                                <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-lg bg-gray-100 rounded-tl rounded-bl cursor-pointer" onClick={() => handleSort('name')}>Users</th>
                                 <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-lg bg-gray-100">Friends</th>
-                                <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-lg bg-gray-100">Created At</th>
-                                <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-lg bg-gray-100">Updated At</th>
+                                <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-lg bg-gray-100 cursor-pointer" onClick={() => handleSort('created_at')}>Created At</th>
+                                <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-lg bg-gray-100 cursor-pointer" onClick={() => handleSort('updated_at')}>Updated At</th>
                                 <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-lg bg-gray-100 rounded-tl rounded-bl">Actions</th>
                               </tr>
                         </thead>
                         <tbody>
-                           
                             {users.map(user => (
                                 <tr key={user.id}>
                                 <td className="px-4 py-3">{user.id}</td>    
