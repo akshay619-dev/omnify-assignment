@@ -1,7 +1,10 @@
 import { Link } from "react-router-dom"
 import { Button } from "./button"
 
-const Header = ({ onLogOut }) => {
+interface HeaderProps {
+  onLogOut: () => void;
+}
+const Header = ({ onLogOut }: HeaderProps)=> {
   return (
     <header className="text-gray-600 body-font">
     <div className="container mx-auto flex flex-wrap p-5 justify-between flex-col md:flex-row items-center">

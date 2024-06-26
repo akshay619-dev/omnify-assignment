@@ -19,7 +19,7 @@ function App() {
     setIsAuthenticated(false);
 };
 
-  const handleSubmitForm = (formData:string, id:Number) => {
+  const handleSubmitForm = (formData:{}, id?:number) => {
 
       if (id) {
           // Update existing user

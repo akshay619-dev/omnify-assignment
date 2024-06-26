@@ -1,6 +1,12 @@
 import { Link } from 'react-router-dom';
 
-const Pagination = ({ currentPage, totalPages, onPageChange }) => {
+
+type PaginatiomProps = {
+    currentPage: number;
+    totalPages: number;
+    onPageChange: (id: number) => void;
+};
+const Pagination: React.FC<PaginatiomProps>  = ({ currentPage, totalPages, onPageChange }) => {
     const handlePrevPage = () => {
         if (currentPage > 1) {
             onPageChange(currentPage - 1);
@@ -17,14 +23,14 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
         <>
             <div className="flex mt-10  w-full mx-auto">
                 
-                <Link className="text-grey-500 inline-flex items-center md:mb-2 lg:mb-0 px-3">
+                <Link to={'#'} className="text-grey-500 inline-flex items-center md:mb-2 lg:mb-0 px-3">
                 {/* {currentPage === totalPages &&  */}
                 <button onClick={handlePrevPage} disabled={currentPage === 1}>
                     Prev
                 </button>
                 {/* } */}
                 </Link>
-                <Link className="text-grey-500 inline-flex items-center md:mb-2 lg:mb-0">
+                <Link to={'#'} className="text-grey-500 inline-flex items-center md:mb-2 lg:mb-0">
                 <button onClick={handleNextPage} disabled={currentPage === totalPages}>
                     Next
                 </button>

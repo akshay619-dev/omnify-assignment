@@ -7,10 +7,17 @@ import { useToast } from "./ui/use-toast"
 import moment from 'moment';
 import Pagination from '../config/Pagination';
 
-
+interface User {
+    id: number;
+    name: string;
+    friends: { friend: number; friend_name: string }[];
+    created_at: string;
+    updated_at: string;
+  }
+  
 const Home = () => {
     const { toast } = useToast()
-    const [users, setUsers] = useState([]);
+    const [users, setUsers] = useState<User[]>([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
 
@@ -18,13 +25,7 @@ const Home = () => {
         fetchUsers(currentPage);
     }, [currentPage]);
 
-    // useEffect(() => {
-    //     axiosInstance.get('/api/users/')
-    //         .then(response => setUsers(response.data))
-    //         .catch(error => console.error(error));
-    // }, []);
-
-    const fetchUsers = (page) => {
+    const fetchUsers = (page:number) => {
         axiosInstance.get(`/api/users/?page=${page}`)
             .then(response => {
                 console.log(response.data)
@@ -51,7 +52,7 @@ const Home = () => {
         }
         
     };
-    const handlePageChange = (page) => {
+    const handlePageChange = (page:number) => {
         setCurrentPage(page);
     };
 
