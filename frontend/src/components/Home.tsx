@@ -7,10 +7,6 @@ import { useToast } from "./ui/use-toast"
 import moment from 'moment';
 import Pagination from '../config/Pagination';
 
-interface Friend {
-    friend: number;
-    friend_name: string;
-  }
 interface User {
     id: number;
     name: string;
