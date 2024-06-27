@@ -83,7 +83,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
                     <Input
                       id="name"
                       type="text"
-                      placeholder="Enter you username"
+                      placeholder="Enter your Username"
                       value={username} onChange={e => setUsername(e.target.value)}
                     />
                   </div>
@@ -92,7 +92,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
                       <Label htmlFor="password">Password</Label>
 
                     </div>
-                    <Input id="password"  placeholder="Enter you password" type="password" value={password} onChange={e => setPassword(e.target.value)} />
+                    <Input id="password"  placeholder="Enter Your Password" type="password" value={password} onChange={e => setPassword(e.target.value)} />
                   </div>
                   <Button variant="outline" type="submit" className="w-full">
                     Login
