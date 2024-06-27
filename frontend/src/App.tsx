@@ -45,7 +45,7 @@ function App() {
               .then(response => {console.log(response.data)
                 toast({
                     title: "Success",
-                    description: "New user has been added successfuly....",
+                    description: "New user has been added Successfuly",
                 })
               })
               .catch(error => {console.error(error)
