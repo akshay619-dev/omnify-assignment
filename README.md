@@ -32,7 +32,7 @@ frontend/        # Frontend application directory
   |-- src/           # Source code
   |-- package.json   # Node.js dependencies
   |-- nginx.conf     # Nginx configuration 
-  
+
 docker-compose.yml    # Docker Compose configuration file
 nginx.conf            # Nginx configuration file for frontend
 
@@ -63,6 +63,19 @@ Build and run the Docker container:
 
 ```shell
 docker-compose up --build -d
+```
+
+### Check Django Admin Access
+
+```shell
+docker-compose exec backend python manage.py createsuperuser
+```
+
+### Restart Services: Restart the Docker services to apply any changes:
+
+```shell
+docker-compose down
+docker-compose up --build -d 
 ```
 
 ### OR Setup manually
