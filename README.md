@@ -23,13 +23,16 @@ backend/         # Backend application directory
   |-- users/         # Django app for users management
   |-- webservice/    # Django project settings and configurations
   |-- manage.py      # Django management script
+  |-- gunicorn.conf.py # gunicorn config file
+  |-- requirements.txt # Python dependencies
 
 frontend/        # Frontend application directory
   |-- Dockerfile     # Dockerfile for frontend service
   |-- public/        # Public assets
   |-- src/           # Source code
   |-- package.json   # Node.js dependencies
-
+  |-- nginx.conf     # Nginx configuration 
+  
 docker-compose.yml    # Docker Compose configuration file
 nginx.conf            # Nginx configuration file for frontend
 
@@ -56,11 +59,29 @@ git clone https://github.com/akshay619-dev/omnify-assignment.git
 cd omnify-assignment
 ```
 
-Build and run the backend Docker container:
+Build and run the Docker container:
 
 ```shell
-docker-compose up --build
+docker-compose up --build -d
 ```
+
+### OR Setup manually
+
+```shell
+cd backend
+pip install -r requirements.txt
+```
+### Run the application 
+```shell
+python manage.py runserver
+```
+
+### Or Run via Gunicorn
+
+```shell
+gunicorn --bind 0.0.0.0:8080 webservice.wsgi:application
+```
+
 
 ### Access the backend API at http://localhost:8000.
 
