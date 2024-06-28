@@ -125,5 +125,31 @@ npm run build
 ```
 
 
+### Tech Stack Overview
+
+### Backend
+- **Django**: Web framework for building the RESTful API.
+- **Django REST Framework**: Toolkit for creating Web APIs.
+- **OAuth2**: Token-based API authentication.
+- **Gunicorn**: WSGI HTTP server for serving Django in production.
+
+
+### Frontend
+- **React**: Library for building the user interface.
+- **TypeScript**: Superset of JavaScript for type safety.
+- **Tailwind & Shadcn UI & CSS**: Utility-first CSS framework and Components.
+- **Vite**: Build tool for bundling and serving the frontend.
+- **React Router**: Library for routing in the frontend.
+- **Axios**: HTTP client for making API requests.
+- **Moment.js**: Library for date formatting.
+
+### Deployment and Infrastructure
+- **Docker**: Container platform for application development and deployment.
+- **Docker Compose**: Tool for managing multi-container applications.
+- **Nginx**: HTTP server and reverse proxy, also handles SSL.
+- **GitHub Actions**: CI/CD platform for automating build, test, and deployment.
+
+
+
 
 
